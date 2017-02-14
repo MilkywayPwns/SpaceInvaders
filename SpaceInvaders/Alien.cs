@@ -17,9 +17,9 @@ namespace SpaceInvaders
             }
         }
 
-        public Alien(Position pos)
+        public Alien(int startx)
         {
-            _pos = pos;
+            _pos = new Position(startx, 10);
         }
 
         // updates the alien

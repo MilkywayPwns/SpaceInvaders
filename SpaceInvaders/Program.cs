@@ -18,6 +18,26 @@ namespace SpaceInvaders
             }
         }
 
+        static void AlienThread()
+        {
+            while (true)
+            {
+                // Check if we need to add Aliens
+                game.CheckAliens();
+
+                // Sleep thread for 1 second
+                Thread.Sleep(1000);
+
+                // Update all aliens
+                game.Mutex.WaitOne();
+                foreach (Alien alien in game.Aliens)
+                {
+                    alien.Update(game);
+                }
+                game.Mutex.ReleaseMutex();
+            }
+        }
+
         static void Main(string[] args)
         {
             game = new SpaceInvaders();
@@ -25,6 +45,10 @@ namespace SpaceInvaders
             // create update thread
             Thread inputthread = new Thread(InputThread);
             inputthread.Start();
+
+            // alien update thread
+            Thread alienthread = new Thread(AlienThread);
+            alienthread.Start();
 
             // game loop
             while (true)

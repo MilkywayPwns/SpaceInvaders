@@ -28,7 +28,7 @@ namespace SpaceInvaders
         public Player()
         {
             _score = 0;
-            _pos = new Position(43, 25);
+            _pos = new Position(43, 35);
         }
 
         public void Shoot()
@@ -38,12 +38,12 @@ namespace SpaceInvaders
 
         public void GoLeft()
         {
-            _pos.X -= 1;
+            _pos.X -= 2;
         }
 
         public void GoRight()
         {
-            _pos.X += 1;
+            _pos.X += 2;
         }
 
         public void Update(SpaceInvaders game)
