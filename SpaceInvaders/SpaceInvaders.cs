@@ -5,6 +5,30 @@ using System.Text;
 
 namespace SpaceInvaders
 {
+    class GameWindow
+    {
+        public GameWindow()
+        {
+
+        }
+
+        public void Clear()
+        {
+            Console.Clear();
+        }
+        public void Draw(Position pos, ConsoleColor backcolor, ConsoleColor frontcolor, string text)
+        {
+            Console.BackgroundColor = backcolor;
+            Console.ForegroundColor = frontcolor;
+
+            Console.SetCursorPosition(pos.X, pos.Y);
+            Console.Write(text);
+
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+    }
+
     class SpaceInvaders
     {
         public enum State
@@ -15,10 +39,13 @@ namespace SpaceInvaders
 
         private List<Alien>     _aliens;
         private State           _state;
+        private GameWindow      _window;
 
         public SpaceInvaders()
         {
             _aliens = new List<Alien>();
+            _window = new GameWindow();
+            _state = 0;
         }
 
         // Updates the game
@@ -43,6 +70,9 @@ namespace SpaceInvaders
         // Draws the game
         public void Draw()
         {
+            // clear console window
+            _window.Clear();
+
             // If state is game
             if (_state == State.Game)
             {
@@ -55,6 +85,7 @@ namespace SpaceInvaders
             else if (_state == State.Menu)
             {
                 // Draw menu
+                _window.Draw(new Position(15, 15), ConsoleColor.Black, ConsoleColor.White, "Space Invaders!");
             }
         }
     }
