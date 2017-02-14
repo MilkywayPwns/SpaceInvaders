@@ -14,9 +14,7 @@ namespace SpaceInvaders
         {
             while (true)
             {
-                // Thread.Sleep(1000);
-                game.OnConsoleInput(Console.ReadKey().Key);
-                Console.Write("Dankmemes");
+                game.OnConsoleInput(Console.ReadKey().Key);                
             }
         }
 
@@ -26,6 +24,7 @@ namespace SpaceInvaders
 
             // create update thread
             Thread inputthread = new Thread(InputThread);
+            inputthread.Start();
 
             // draw loop
             // todo, change true so it does not loop endlessly
@@ -39,8 +38,6 @@ namespace SpaceInvaders
                 // draw the game
                 game.Draw();
             }
-
-            // Console.ReadKey();
 
             // when the game is done.
             inputthread.Abort();
