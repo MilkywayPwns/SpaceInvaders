@@ -26,11 +26,10 @@ namespace SpaceInvaders
             Thread inputthread = new Thread(InputThread);
             inputthread.Start();
 
-            // draw loop
-            // todo, change true so it does not loop endlessly
+            // game loop
             while (true)
             {
-                Thread.Sleep(500);
+                Thread.Sleep(200);
 
                 // update the game
                 game.Update();

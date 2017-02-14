@@ -31,6 +31,21 @@ namespace SpaceInvaders
             _pos = new Position(43, 25);
         }
 
+        public void Shoot()
+        {
+
+        }
+
+        public void GoLeft()
+        {
+            _pos.X -= 1;
+        }
+
+        public void GoRight()
+        {
+            _pos.X += 1;
+        }
+
         public void Update(SpaceInvaders game)
         {
 

@@ -108,6 +108,9 @@ namespace SpaceInvaders
             // If state is game
             if (State == GameState.Game)
             {
+                // Update player
+                Player.Update(this);
+
                 // Update all aliens
                 foreach (Alien alien in _aliens)
                 {
@@ -138,7 +141,18 @@ namespace SpaceInvaders
             // Game keys
             else if (State == GameState.Game)
             {
-
+                if (key == ConsoleKey.Spacebar)
+                {
+                    Player.Shoot();
+                }
+                else if (key == ConsoleKey.A)
+                {
+                    Player.GoLeft();
+                }
+                else if (key == ConsoleKey.D)
+                {
+                    Player.GoRight();
+                }
             }
         }
 
