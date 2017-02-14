@@ -103,10 +103,11 @@ namespace SpaceInvaders
             {
                 // Title
                 _window.DrawText(new Position(5, 3), ConsoleColor.Black, ConsoleColor.Green, "Space Invaders!");
+                _window.DrawText(new Position(5, 4), ConsoleColor.Black, ConsoleColor.Green, "Credits: Micky Langeveld & Robin de Bruin");
 
                 // Buttons
-                _window.DrawText(new Position(5, 5), ConsoleColor.Black, ConsoleColor.Green, "[S]tart");
-                _window.DrawText(new Position(5, 6), ConsoleColor.Black, ConsoleColor.Green, "[Q]uit");
+                _window.DrawText(new Position(5, 6), ConsoleColor.Black, ConsoleColor.Green, "- [S]tart");
+                _window.DrawText(new Position(5, 7), ConsoleColor.Black, ConsoleColor.Green, "- [Q]uit");
 
                 // Input line
                 _window.DrawText(new Position(0, Console.WindowHeight - 1), ConsoleColor.Black, ConsoleColor.Green, "Please select an option: ");
