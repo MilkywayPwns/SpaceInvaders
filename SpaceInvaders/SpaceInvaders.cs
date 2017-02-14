@@ -14,6 +14,7 @@ namespace SpaceInvaders
 
         public void Clear()
         {
+            Console.SetWindowSize(120, 30);
             Console.Clear();
         }
         public void DrawText(Position pos, ConsoleColor backcolor, ConsoleColor frontcolor, string text)
@@ -23,6 +24,31 @@ namespace SpaceInvaders
 
             Console.SetCursorPosition(pos.X, pos.Y);
             Console.Write(text);
+
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+        public void DrawBox(Position pos, Position size, ConsoleColor innercolor, ConsoleColor bordercolor)
+        {
+            Console.BackgroundColor = innercolor;
+            Console.ForegroundColor = bordercolor;
+
+            for (int y = pos.Y; y < pos.Y + size.Y; y++)
+            {
+                Console.SetCursorPosition(pos.X, y);
+
+                if (y == pos.Y || y == (pos.Y + size.Y) - 1)
+                {
+                    for (int x = pos.X; x < pos.X + size.X; x++)
+                        Console.Write("█");
+                }
+                else
+                {
+                    Console.Write("█");
+                    Console.SetCursorPosition((pos.X + size.X) - 1, y);
+                    Console.Write("█");
+                }
+            }
 
             Console.BackgroundColor = ConsoleColor.Black;
             Console.ForegroundColor = ConsoleColor.White;
@@ -93,6 +119,18 @@ namespace SpaceInvaders
             // If state is game
             if (_state == State.Game)
             {
+                // Draw game box
+                _window.DrawBox(new Position(5, 3), new Position(80, 24), ConsoleColor.Black, ConsoleColor.Green);
+
+                // Draw info box
+                _window.DrawBox(new Position(86, 3), new Position(30, 6), ConsoleColor.Black, ConsoleColor.Green);
+
+                // Info text
+                _window.DrawText(new Position(87, 4), ConsoleColor.Black, ConsoleColor.Green, "Keys:");
+                _window.DrawText(new Position(87, 5), ConsoleColor.Black, ConsoleColor.Green, "[A]     - Left");
+                _window.DrawText(new Position(87, 6), ConsoleColor.Black, ConsoleColor.Green, "[D]     - Right");
+                _window.DrawText(new Position(87, 7), ConsoleColor.Black, ConsoleColor.Green, "[Space] - Shoot");
+
                 // Draw all aliens
                 foreach (Alien alien in _aliens)
                 {
