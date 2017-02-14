@@ -7,26 +7,28 @@ namespace SpaceInvaders
 {
     class Position
     {
+        private int _x, _y;
+
         public int X
         {
             get
             {
-                return X;
+                return _x;
             }
             set
             {
-                X = value;
+                _x = value;
             }
         }
         public int Y
         {
             get
             {
-                return Y;
+                return _y;
             }
             set
             {
-                Y = value;
+                _y = value;
             }
         }
 

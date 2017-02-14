@@ -10,12 +10,13 @@ namespace SpaceInvaders
     {
         private static SpaceInvaders game;
 
-        static void UpdateThread()
+        static void InputThread()
         {
             while (true)
             {
-                System.Threading.Thread.Sleep(1000);
-                game.Update();
+                // Thread.Sleep(1000);
+                game.OnConsoleInput(Console.ReadKey().Key);
+                Console.Write("Dankmemes");
             }
         }
 
@@ -24,19 +25,25 @@ namespace SpaceInvaders
             game = new SpaceInvaders();
 
             // create update thread
-            Thread updatethread = new Thread(UpdateThread);
+            Thread inputthread = new Thread(InputThread);
 
             // draw loop
             // todo, change true so it does not loop endlessly
             while (true)
             {
-                
+                Thread.Sleep(1000);
+
+                // update the game
+                game.Update();
+
                 // draw the game
                 game.Draw();
             }
 
+            // Console.ReadKey();
+
             // when the game is done.
-            updatethread.Abort();
+            inputthread.Abort();
         }
     }
 }

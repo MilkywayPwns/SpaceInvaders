@@ -16,7 +16,7 @@ namespace SpaceInvaders
         {
             Console.Clear();
         }
-        public void Draw(Position pos, ConsoleColor backcolor, ConsoleColor frontcolor, string text)
+        public void DrawText(Position pos, ConsoleColor backcolor, ConsoleColor frontcolor, string text)
         {
             Console.BackgroundColor = backcolor;
             Console.ForegroundColor = frontcolor;
@@ -67,6 +67,23 @@ namespace SpaceInvaders
             }
         }
 
+        public void OnConsoleInput(ConsoleKey key)
+        {
+            // Menu keys
+            if (_state == State.Menu)
+            {
+                if (key == ConsoleKey.S)
+                {
+                    
+                    _state = State.Game;
+                }
+                else if (key == ConsoleKey.Q)
+                {
+                    Environment.Exit(0);
+                }
+            }
+        }
+
         // Draws the game
         public void Draw()
         {
@@ -84,8 +101,15 @@ namespace SpaceInvaders
             }
             else if (_state == State.Menu)
             {
-                // Draw menu
-                _window.Draw(new Position(15, 15), ConsoleColor.Black, ConsoleColor.White, "Space Invaders!");
+                // Title
+                _window.DrawText(new Position(5, 3), ConsoleColor.Black, ConsoleColor.Green, "Space Invaders!");
+
+                // Buttons
+                _window.DrawText(new Position(5, 5), ConsoleColor.Black, ConsoleColor.Green, "[S]tart");
+                _window.DrawText(new Position(5, 6), ConsoleColor.Black, ConsoleColor.Green, "[Q]uit");
+
+                // Input line
+                _window.DrawText(new Position(0, Console.WindowHeight - 1), ConsoleColor.Black, ConsoleColor.Green, "Please select an option: ");
             }
         }
     }
