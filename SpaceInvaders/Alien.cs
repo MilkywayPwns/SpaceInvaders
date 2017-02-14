@@ -15,5 +15,17 @@ namespace SpaceInvaders
             _pos = pos;
             _color = color;
         }
+
+        // updates the alien
+        public void Update()
+        {
+
+        }
+
+        // draws the alien on the screen
+        public void Draw()
+        {
+
+        }
     }
 }
