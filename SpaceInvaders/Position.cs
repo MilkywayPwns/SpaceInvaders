@@ -7,13 +7,34 @@ namespace SpaceInvaders
 {
     class Position
     {
-        private int _x, _y;
+        public int X
+        {
+            get
+            {
+                return X;
+            }
+            set
+            {
+                X = value;
+            }
+        }
+        public int Y
+        {
+            get
+            {
+                return Y;
+            }
+            set
+            {
+                Y = value;
+            }
+        }
 
         public Position(int x, int y)
         {
             // set position variables
-            _x = x;
-            _y = y;
+            X = x;
+            Y = y;
         }
     }
 }

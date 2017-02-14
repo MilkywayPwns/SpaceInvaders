@@ -19,7 +19,7 @@ namespace SpaceInvaders
         // updates the alien
         public void Update()
         {
-
+            _pos.Y -= 1;
         }
 
         // draws the alien on the screen

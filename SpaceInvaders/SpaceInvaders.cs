@@ -7,7 +7,14 @@ namespace SpaceInvaders
 {
     class SpaceInvaders
     {
-        private List<Alien> _aliens;
+        public enum State
+        {
+            Menu = 0,
+            Game = 1,
+        }
+
+        private List<Alien>     _aliens;
+        private State           _state;
 
         public SpaceInvaders()
         {
@@ -17,20 +24,37 @@ namespace SpaceInvaders
         // Updates the game
         public void Update()
         {
-            // Update all aliens
-            foreach (Alien alien in _aliens)
+            // If state is game
+            if (_state == State.Game)
             {
-                alien.Update();
+                // Update all aliens
+                foreach (Alien alien in _aliens)
+                {
+                    alien.Update();
+                }
+            }
+            // If state is menu
+            else if (_state == State.Menu)
+            {
+
             }
         }
 
         // Draws the game
         public void Draw()
         {
-            // Draw all aliens
-            foreach (Alien alien in _aliens)
+            // If state is game
+            if (_state == State.Game)
             {
-                alien.Draw();
+                // Draw all aliens
+                foreach (Alien alien in _aliens)
+                {
+                    alien.Draw();
+                }
+            }
+            else if (_state == State.Menu)
+            {
+                // Draw menu
             }
         }
     }
