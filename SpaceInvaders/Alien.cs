@@ -17,13 +17,13 @@ namespace SpaceInvaders
         }
 
         // updates the alien
-        public void Update()
+        public void Update(SpaceInvaders game)
         {
             _pos.Y -= 1;
         }
 
         // draws the alien on the screen
-        public void Draw()
+        public void Draw(SpaceInvaders game)
         {
 
         }

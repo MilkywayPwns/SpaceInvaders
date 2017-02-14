@@ -30,7 +30,7 @@ namespace SpaceInvaders
             // todo, change true so it does not loop endlessly
             while (true)
             {
-                Thread.Sleep(1000);
+                Thread.Sleep(500);
 
                 // update the game
                 game.Update();
@@ -40,7 +40,7 @@ namespace SpaceInvaders
             }
 
             // when the game is done.
-            inputthread.Abort();
+            // inputthread.Abort();
         }
     }
 }

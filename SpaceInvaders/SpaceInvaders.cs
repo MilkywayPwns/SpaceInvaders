@@ -57,20 +57,48 @@ namespace SpaceInvaders
 
     class SpaceInvaders
     {
-        public enum State
+        public enum GameState
         {
             Menu = 0,
             Game = 1,
         }
 
         private List<Alien>     _aliens;
-        private State           _state;
+        private GameState       _state;
         private GameWindow      _window;
+        private Player          _player;
+
+        public GameWindow Window
+        {
+            get
+            {
+                return _window;
+            }
+        }
+        public GameState State
+        {
+            get
+            {
+                return _state;
+            }
+            set
+            {
+                _state = value;
+            }
+        }
+        public Player Player
+        {
+            get
+            {
+                return _player;
+            }
+        }
 
         public SpaceInvaders()
         {
             _aliens = new List<Alien>();
             _window = new GameWindow();
+            _player = new Player();
             _state = 0;
         }
 
@@ -78,16 +106,16 @@ namespace SpaceInvaders
         public void Update()
         {
             // If state is game
-            if (_state == State.Game)
+            if (State == GameState.Game)
             {
                 // Update all aliens
                 foreach (Alien alien in _aliens)
                 {
-                    alien.Update();
+                    alien.Update(this);
                 }
             }
             // If state is menu
-            else if (_state == State.Menu)
+            else if (State == GameState.Menu)
             {
 
             }
@@ -96,17 +124,21 @@ namespace SpaceInvaders
         public void OnConsoleInput(ConsoleKey key)
         {
             // Menu keys
-            if (_state == State.Menu)
+            if (State == GameState.Menu)
             {
                 if (key == ConsoleKey.S)
                 {
-                    
-                    _state = State.Game;
+                    State = GameState.Game;
                 }
                 else if (key == ConsoleKey.Q)
                 {
                     Environment.Exit(0);
                 }
+            }
+            // Game keys
+            else if (State == GameState.Game)
+            {
+
             }
         }
 
@@ -114,41 +146,44 @@ namespace SpaceInvaders
         public void Draw()
         {
             // clear console window
-            _window.Clear();
+            Window.Clear();
 
             // If state is game
-            if (_state == State.Game)
+            if (State == GameState.Game)
             {
                 // Draw game box
-                _window.DrawBox(new Position(5, 3), new Position(80, 24), ConsoleColor.Black, ConsoleColor.Green);
+                Window.DrawBox(new Position(5, 3), new Position(80, 24), ConsoleColor.Black, ConsoleColor.Green);
 
                 // Draw info box
-                _window.DrawBox(new Position(86, 3), new Position(30, 6), ConsoleColor.Black, ConsoleColor.Green);
+                Window.DrawBox(new Position(86, 3), new Position(30, 6), ConsoleColor.Black, ConsoleColor.Green);
 
                 // Info text
-                _window.DrawText(new Position(87, 4), ConsoleColor.Black, ConsoleColor.Green, "Keys:");
-                _window.DrawText(new Position(87, 5), ConsoleColor.Black, ConsoleColor.Green, "[A]     - Left");
-                _window.DrawText(new Position(87, 6), ConsoleColor.Black, ConsoleColor.Green, "[D]     - Right");
-                _window.DrawText(new Position(87, 7), ConsoleColor.Black, ConsoleColor.Green, "[Space] - Shoot");
+                Window.DrawText(new Position(87, 4), ConsoleColor.Black, ConsoleColor.Green, "Keys:");
+                Window.DrawText(new Position(87, 5), ConsoleColor.Black, ConsoleColor.Green, "[A]     - Left");
+                Window.DrawText(new Position(87, 6), ConsoleColor.Black, ConsoleColor.Green, "[D]     - Right");
+                Window.DrawText(new Position(87, 7), ConsoleColor.Black, ConsoleColor.Green, "[Space] - Shoot");
+
+                // Draw player
+                Player.Draw(this);
 
                 // Draw all aliens
                 foreach (Alien alien in _aliens)
                 {
-                    alien.Draw();
+                    alien.Draw(this);
                 }
             }
-            else if (_state == State.Menu)
+            else if (State == GameState.Menu)
             {
                 // Title
-                _window.DrawText(new Position(5, 3), ConsoleColor.Black, ConsoleColor.Green, "Space Invaders!");
-                _window.DrawText(new Position(5, 4), ConsoleColor.Black, ConsoleColor.Green, "Credits: Micky Langeveld & Robin de Bruin");
+                Window.DrawText(new Position(5, 3), ConsoleColor.Black, ConsoleColor.Green, "Space Invaders!");
+                Window.DrawText(new Position(5, 4), ConsoleColor.Black, ConsoleColor.Green, "Credits: Micky Langeveld & Robin de Bruin");
 
                 // Buttons
-                _window.DrawText(new Position(5, 6), ConsoleColor.Black, ConsoleColor.Green, "- [S]tart");
-                _window.DrawText(new Position(5, 7), ConsoleColor.Black, ConsoleColor.Green, "- [Q]uit");
+                Window.DrawText(new Position(5, 6), ConsoleColor.Black, ConsoleColor.Green, "- [S]tart");
+                Window.DrawText(new Position(5, 7), ConsoleColor.Black, ConsoleColor.Green, "- [Q]uit");
 
                 // Input line
-                _window.DrawText(new Position(0, Console.WindowHeight - 1), ConsoleColor.Black, ConsoleColor.Green, "Please select an option: ");
+                Window.DrawText(new Position(0, Console.WindowHeight - 1), ConsoleColor.Black, ConsoleColor.Green, "Please select an option: ");
             }
         }
     }
