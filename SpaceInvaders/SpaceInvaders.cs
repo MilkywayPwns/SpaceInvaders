@@ -144,6 +144,31 @@ namespace SpaceInvaders
             }*/
         }
 
+        public void AlienThread()
+        {
+            while (true)
+            {
+                Thread.Sleep(1000);
+
+                Mutex.WaitOne();
+                foreach (Alien alien in Aliens)
+                {
+                    alien.Update(this);
+                }
+                Mutex.ReleaseMutex();
+            }
+        }
+
+        public void Initialize()
+        {
+            // spawn aliens
+            AddAliens();
+
+            // start alien thread
+            // Thread alienthread = new Thread(AlienThread);
+            // alienthread.Start();
+        }
+
         public void OnConsoleInput(ConsoleKey key)
         {
             // Menu keys
@@ -152,6 +177,7 @@ namespace SpaceInvaders
                 if (key == ConsoleKey.S)
                 {
                     State = GameState.Game;
+                    Initialize();
                 }
                 else if (key == ConsoleKey.Q)
                 {
@@ -174,6 +200,17 @@ namespace SpaceInvaders
                     Player.GoRight();
                 }
             }
+        }
+
+        public void AddAliens()
+        {
+            Mutex.WaitOne();
+            Aliens.Add(new Alien(new Random().Next(10, 90)));
+            Aliens.Add(new Alien(new Random().Next(10, 90)));
+            Aliens.Add(new Alien(new Random().Next(10, 90)));
+            Aliens.Add(new Alien(new Random().Next(10, 90)));
+            Aliens.Add(new Alien(new Random().Next(10, 90)));
+            Mutex.ReleaseMutex();
         }
 
         // Checks if there are enough aliens, if not, adds aliens.
@@ -232,7 +269,6 @@ namespace SpaceInvaders
                 Window.DrawText(new Position(1, 6), ConsoleColor.Black, ConsoleColor.Green, "    ____\\_\\  \\ \\__\\    \\ \\__\\ \\__\\ \\_______\\ \\_______\\       \\ \\__\\ \\__\\\\ \\__\\ \\__/ /     \\ \\__\\ \\__\\ \\_______\\ \\_______\\ \\__\\\\ _\\ ____\\_\\  \\ ");
                 Window.DrawText(new Position(1, 7), ConsoleColor.Black, ConsoleColor.Green, "   |\\_________\\|__|     \\|__|\\|__|\\|_______|\\|_______|        \\|__|\\|__| \\|__|\\|__|/       \\|__|\\|__|\\|_______|\\|_______|\\|__|\\|__|\\_________\\");
                 Window.DrawText(new Position(1, 8), ConsoleColor.Black, ConsoleColor.Green, "   \\|_________|                                                                                                                   \\|_________|");
-                Window.DrawText(new Position(1, 9), ConsoleColor.Black, ConsoleColor.Green, "                                                                                                                                              ");
 
                 // Credits
                 Window.DrawText(new Position(5, 11), ConsoleColor.Black, ConsoleColor.Green, "Credits: Micky Langeveld & Robin de Bruin");
@@ -255,7 +291,6 @@ namespace SpaceInvaders
                 Window.DrawText(new Position(1, 5), ConsoleColor.Black, ConsoleColor.Red, "  \\ \\  \\|\\  \\ \\  \\ \\  \\ \\  \\    \\ \\  \\ \\  \\_|\\ \\       \\ \\  \\\\\\  \\ \\    / /   \\ \\  \\_|\\ \\ \\  \\\\  \\| ");
                 Window.DrawText(new Position(1, 6), ConsoleColor.Black, ConsoleColor.Red, "   \\ \\_______\\ \\__\\ \\__\\ \\__\\    \\ \\__\\ \\_______\\       \\ \\_______\\ \\__/ /     \\ \\_______\\ \\__\\\\ _\\ ");
                 Window.DrawText(new Position(1, 7), ConsoleColor.Black, ConsoleColor.Red, "    \\|_______|\\|__|\\|__|\\|__|     \\|__|\\|_______|        \\|_______|\\|__|/       \\|_______|\\|__|\\|__|");
-                Window.DrawText(new Position(1, 8), ConsoleColor.Black, ConsoleColor.Red, "                                                                                                    ");
             }
         }
     }
