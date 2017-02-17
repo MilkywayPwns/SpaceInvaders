@@ -18,6 +18,12 @@ namespace SpaceInvaders
             Console.SetWindowSize(145, 40);
             Console.Clear();
         }
+        public void ClearGame()
+        {
+            Console.SetWindowSize(145, 40);
+            DrawBox(new Position(6, 4), new Position(98, 32), ConsoleColor.Black, ConsoleColor.Black);
+
+        }
         public void DrawText(Position pos, ConsoleColor backcolor, ConsoleColor frontcolor, string text)
         {
             Console.BackgroundColor = backcolor;
@@ -121,6 +127,8 @@ namespace SpaceInvaders
             _player = new Player();
             _state = 0;
             _maxaliens = 5;
+
+            Window.Clear();
         }
 
         // Updates the game
@@ -176,8 +184,21 @@ namespace SpaceInvaders
             {
                 if (key == ConsoleKey.S)
                 {
+                    Window.Clear();
                     State = GameState.Game;
                     Initialize();
+
+                    // Draw game box
+                    Window.DrawBox(new Position(5, 3), new Position(100, 34), ConsoleColor.Black, ConsoleColor.Green);
+
+                    // Draw info box
+                    Window.DrawBox(new Position(106, 3), new Position(30, 6), ConsoleColor.Black, ConsoleColor.Green);
+
+                    // Info text
+                    Window.DrawText(new Position(107, 4), ConsoleColor.Black, ConsoleColor.Green, "Keys:");
+                    Window.DrawText(new Position(107, 5), ConsoleColor.Black, ConsoleColor.Green, "[A]     - Left");
+                    Window.DrawText(new Position(107, 6), ConsoleColor.Black, ConsoleColor.Green, "[D]     - Right");
+                    Window.DrawText(new Position(107, 7), ConsoleColor.Black, ConsoleColor.Green, "[Space] - Shoot");
                 }
                 else if (key == ConsoleKey.Q)
                 {
@@ -230,22 +251,12 @@ namespace SpaceInvaders
         public void Draw()
         {
             // clear console window
-            Window.Clear();
+            // Window.Clear();
 
             // If state is game
             if (State == GameState.Game)
             {
-                // Draw game box
-                Window.DrawBox(new Position(5, 3), new Position(100, 34), ConsoleColor.Black, ConsoleColor.Green);
-
-                // Draw info box
-                Window.DrawBox(new Position(106, 3), new Position(30, 6), ConsoleColor.Black, ConsoleColor.Green);
-
-                // Info text
-                Window.DrawText(new Position(107, 4), ConsoleColor.Black, ConsoleColor.Green, "Keys:");
-                Window.DrawText(new Position(107, 5), ConsoleColor.Black, ConsoleColor.Green, "[A]     - Left");
-                Window.DrawText(new Position(107, 6), ConsoleColor.Black, ConsoleColor.Green, "[D]     - Right");
-                Window.DrawText(new Position(107, 7), ConsoleColor.Black, ConsoleColor.Green, "[Space] - Shoot");
+                Window.ClearGame();
 
                 // Draw player
                 Player.Draw(this);
